@@ -6,14 +6,15 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    cpus: 1
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - ./sonarr:/config
-      - /E/TV:/data 
+      - /C/sonarr/config:/config
+      - /F/TV:/data 
+      - /F:/tv
+      - /C/sonarr/backup:/backup
     ports:
       - 8989:8989
     networks:
@@ -22,14 +23,15 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    cpus: 1
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - ./radarr:/config
-      - /F/movies:/data 
+      - /C/radarr/config:/config
+      - /E/movies:/data 
+      - /E:/movies
+      - /C/radarr/backup:/backup
     ports:
       - 7878:7878
     networks:
@@ -43,12 +45,13 @@ services:
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - ./sabnzbd:/config
+      - /C/sabnzb/config:/config
       - /C/sabnzb/temp:/temp
       - /C/sabnzb/downloads:/downloads
       - /C/sabnzb/downloads/incomplete:/incomplete-downloads
-      - /F:/movies
-      - /E:/tv
+      - /E:/movies
+      - /F:/tv
+      - /C/sabnzb/backup:/backup
     ports:
       - 8088:8080
     networks:
